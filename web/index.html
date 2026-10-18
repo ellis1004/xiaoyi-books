@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小藝繪本</title>
+<link rel="preload" href="assets/fonts/jf-openhuninn.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/font.css">
+<style>
+/* Layout: picture-book spread. Sky hero with clouds and a grass hill, cream paper for the pages, yellow stickers for actions, grass band for the series. */
+:root{
+  --sky:#CFE8F7; --sky-deep:#9CCBEA; --paper:#FFF6E8; --card:#FFFFFF;
+  --ink:#25384A; --ink-soft:#4A6478;
+  --coral:#E8665A; --coral-deep:#C94A3E; --sun:#FFD45C; --sun-deep:#E9B82E;
+  --grass:#9CCB7A; --grass-deep:#6FAE52; --wing:#4F8FC0; --lilac:#A98BD8; --pink:#F4A6A0;
+  --line:rgba(37,56,74,.14); --shadow:0 10px 0 rgba(37,56,74,.10);
+  --display:'Huninn','Noto Sans TC',system-ui,sans-serif;
+  --body:'Huninn',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sky:#23384D; --sky-deep:#1B2B3C; --paper:#2A2420; --card:#352E29;
+  --ink:#FBF4EA; --ink-soft:#C9BFB3; --coral:#F08074; --coral-deep:#D85F52; --sun:#F6CB55; --sun-deep:#D9AD35;
+  --grass:#4F7F3C; --grass-deep:#3C6A2D; --wing:#8FC1E3; --lilac:#B9A3E6; --pink:#F0B3AE;
+  --line:rgba(251,244,234,.16); --shadow:0 10px 0 rgba(0,0,0,.25); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --sky:#23384D; --sky-deep:#1B2B3C; --paper:#2A2420; --card:#352E29;
+  --ink:#FBF4EA; --ink-soft:#C9BFB3; --coral:#F08074; --coral-deep:#D85F52; --sun:#F6CB55; --sun-deep:#D9AD35;
+  --grass:#4F7F3C; --grass-deep:#3C6A2D; --wing:#8FC1E3; --lilac:#B9A3E6; --pink:#F0B3AE;
+  --line:rgba(251,244,234,.16); --shadow:0 10px 0 rgba(0,0,0,.25); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.2;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sticker{display:inline-block;font-family:var(--display);font-size:14px;letter-spacing:.06em;background:var(--sun);color:#25384A;padding:4px 14px;border-radius:999px;transform:rotate(-2deg);box-shadow:0 3px 0 var(--sun-deep)}
+
+/* header */
+header{background:var(--sky);position:relative;z-index:2}
+header .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:22px;color:var(--ink);text-decoration:none}
+.logo svg{width:38px;height:38px}
+header a.th{font-family:var(--display);font-size:14px;color:var(--ink);text-decoration:none;background:var(--card);padding:6px 14px;border-radius:999px;box-shadow:0 3px 0 var(--line);white-space:nowrap}
+
+/* hero sky */
+.hero{position:relative;background:linear-gradient(var(--sky) 0%,var(--sky-deep) 100%);padding-block:40px 0;overflow:hidden}
+.hero .wrap{position:relative;z-index:2;padding-bottom:150px}
+.sun{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 18px color-mix(in srgb,var(--sun) 25%,transparent);z-index:1}
+.cloud{position:absolute;background:var(--card);border-radius:999px;opacity:.95;z-index:1}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud.c1{width:140px;height:44px;left:-20px;top:70px}.cloud.c1::before{width:60px;height:60px;left:22px;top:-30px}.cloud.c1::after{width:44px;height:44px;left:70px;top:-18px}
+.cloud.c2{width:110px;height:36px;right:12%;top:160px}.cloud.c2::before{width:48px;height:48px;left:18px;top:-24px}.cloud.c2::after{width:36px;height:36px;left:56px;top:-14px}
+.hill{position:absolute;left:-10%;right:-10%;bottom:-40px;height:190px;background:var(--grass);border-radius:50% 50% 0 0/100% 100% 0 0;z-index:1}
+.hill.h2{left:30%;right:-30%;bottom:-70px;height:160px;background:var(--grass-deep)}
+.plane{position:absolute;z-index:3;width:120px;height:auto;right:6%;top:40px;transform:rotate(-12deg)}
+@media (prefers-reduced-motion:no-preference){
+  .plane{animation:fly 6s ease-in-out infinite}
+  @keyframes fly{0%,100%{transform:translate(0,0) rotate(-12deg)}50%{transform:translate(-18px,14px) rotate(-6deg)}}
+  .cloud{animation:drift 14s ease-in-out infinite}.cloud.c2{animation-duration:18s;animation-delay:-5s}
+  @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(24px)}}
+}
+.hero h1{font-size:clamp(34px,8.5vw,56px);color:var(--ink);margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--coral);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.05em;height:.35em;background:var(--sun);z-index:-1;border-radius:4px;transform:rotate(-1deg)}
+.hero .sub{margin-top:14px;font-size:18px;color:var(--ink);max-width:30em}
+
+/* the form card sits on the hill */
+.card{position:relative;z-index:4;background:var(--card);border-radius:28px;padding:22px 20px 24px;box-shadow:var(--shadow);margin-top:-120px;border:3px solid var(--sun)}
+.form{display:grid;gap:20px}
+label.lbl,.lbl{display:block;font-family:var(--display);font-size:16px;color:var(--ink);margin-bottom:8px}
+input[type=text]{width:100%;font:inherit;font-family:var(--display);font-size:28px;padding:12px 18px;border:3px dashed var(--sky-deep);border-radius:18px;background:var(--paper);color:var(--ink)}
+input[type=text]:focus{outline:none;border-style:solid;border-color:var(--wing);box-shadow:0 0 0 5px color-mix(in srgb,var(--wing) 25%,transparent)}
+.err{font-size:14px;color:var(--coral-deep);min-height:1.4em;margin-top:4px}
+.looks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.look{border:3px solid transparent;background:var(--paper);border-radius:22px;padding:10px 4px 8px;display:grid;justify-items:center;gap:6px;cursor:pointer;font:inherit;color:var(--ink);transition:transform .15s}
+.look:hover{transform:translateY(-3px)}
+.look[aria-pressed=true]{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--card))}
+.look:focus-visible{outline:3px solid var(--wing);outline-offset:2px}
+.look svg{width:64px;height:64px}
+.look span{font-family:var(--display);font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-family:var(--display);font-size:22px;padding:14px 30px;border-radius:999px;border:0;background:var(--coral);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 6px 0 var(--coral-deep);transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--coral-deep)}
+.btn:active{transform:translateY(6px);box-shadow:0 0 0 var(--coral-deep)}
+.btn:focus-visible{outline:3px solid var(--wing);outline-offset:3px}
+.btn[aria-disabled=true]{background:var(--ink-soft);box-shadow:0 6px 0 color-mix(in srgb,var(--ink-soft) 70%,black);cursor:not-allowed}
+.btn.sun{background:var(--sun);color:#25384A;box-shadow:0 6px 0 var(--sun-deep)}
+.btn.sun:hover{box-shadow:0 4px 0 var(--sun-deep)}
+
+/* preview on dotted paper */
+#preview{padding-block:56px 48px;background:var(--paper);background-image:radial-gradient(color-mix(in srgb,var(--sky-deep) 55%,transparent) 1.6px,transparent 1.6px);background-size:22px 22px}
+#preview h2{font-size:clamp(26px,6vw,36px);margin-top:10px}
+#preview .for{font-family:var(--display);font-size:18px;color:var(--ink-soft);margin-top:6px}
+.pages{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:22px 6px 16px;margin:0 -6px;scrollbar-width:thin}
+.page{flex:0 0 min(78vw,320px);scroll-snap-align:center;aspect-ratio:1;max-width:100%;position:relative;border-radius:14px;overflow:hidden;background:var(--sky);box-shadow:0 14px 0 rgba(37,56,74,.10),0 2px 12px rgba(37,56,74,.15);border:4px solid var(--card)}
+.page:nth-child(odd){transform:rotate(-1.2deg)}.page:nth-child(even){transform:rotate(1.2deg)}
+@media (min-width:700px){.pages{flex-wrap:wrap;overflow:visible;justify-content:center}.page{flex:0 0 calc(50% - 9px)}}
+.page img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.page .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-soft);font-size:13px;background:linear-gradient(var(--sky) 60%,var(--grass) 60%)}
+.page .ph svg{width:42%;height:auto}
+.page .ph span{position:absolute;bottom:14px;font-family:var(--display);background:var(--card);padding:2px 10px;border-radius:999px}
+.page .num{position:absolute;left:10px;top:8px;font-family:var(--display);font-size:12px;color:#25384A;background:var(--sun);padding:1px 9px;border-radius:999px}
+.txt{position:absolute;max-width:64%;font-family:var(--display);font-size:clamp(13px,2.6vw,17px);line-height:1.55;color:#25384A;padding:12px 16px;background:rgba(255,246,232,.9);border-radius:46% 54% 50% 50% / 60% 55% 45% 40%}
+.txt b{font-weight:400;color:#C94A3E;white-space:nowrap}
+.txt.tr{top:12%;right:5%}.txt.bl{bottom:8%;left:5%}.txt.tl{top:12%;left:5%}
+.txt.bb{left:5%;right:5%;bottom:5%;max-width:none;border-radius:20px}
+.txt.cover{left:7%;right:7%;top:14%;max-width:none;text-align:center;border-radius:22px;background:rgba(255,246,232,.94)}
+.txt.cover .t{font-size:clamp(20px,4.8vw,28px);display:block}
+.txt.cover .s{font-size:12px;color:#4A6478;display:block;letter-spacing:.1em}
+.spec{font-size:14px;color:var(--ink-soft);margin-top:10px}
+
+/* preorder */
+#order{padding-block:56px;background:var(--sky)}
+#order .box{background:var(--card);border-radius:28px;padding:26px 22px;box-shadow:var(--shadow);position:relative;border:3px solid var(--sun)}
+.price{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.price .now{font-family:var(--display);font-size:52px;color:var(--coral);line-height:1}
+.price .was{color:var(--ink-soft);text-decoration:line-through;font-size:20px}
+.terms{list-style:none;padding:0;margin:18px 0 24px;display:grid;gap:10px;color:var(--ink)}
+.terms li{padding-left:30px;position:relative}
+.terms li::before{content:"";position:absolute;left:0;top:.35em;width:18px;height:18px;border-radius:50%;background:var(--grass);box-shadow:inset 0 -3px 0 var(--grass-deep)}
+.note{font-size:15px;color:var(--ink-soft);margin-top:16px}
+.note a{color:var(--coral-deep);font-family:var(--display)}
+
+/* about on grass */
+.about{background:var(--grass);padding-block:56px;position:relative}
+.about h2{font-size:clamp(26px,6vw,34px);margin-top:10px;color:#1F3A14}
+.about p{max-width:36em;color:#1F3A14}
+.about p+p{margin-top:10px}
+.series{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
+.series li{display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:18px;background:var(--card);box-shadow:0 5px 0 var(--grass-deep);font-family:var(--display);font-size:18px}
+.series li .n{width:30px;height:30px;border-radius:50%;background:var(--sun);color:#25384A;display:grid;place-items:center;font-size:15px;flex:none}
+.series li.soon .n{background:var(--sky)}
+.series li.soon{opacity:.75}
+.series li .when{margin-left:auto;font-size:13px;color:var(--ink-soft);font-family:var(--body)}
+.series li a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--coral)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .about h2, :root:not([data-theme="light"]) .about p{color:#F3F7EC} }
+:root[data-theme="dark"] .about h2, :root[data-theme="dark"] .about p{color:#F3F7EC}
+
+footer{padding-block:28px 36px;font-size:14px;color:var(--ink-soft);background:var(--paper)}
+footer .wrap{display:grid;gap:6px}
+footer .brand{font-family:var(--display);font-size:18px;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 26 L44 8 L30 42 L24 28 Z" fill="#FFFFFF" stroke="#25384A" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 28 L44 8" stroke="#B8C2CC" stroke-width="1.6"/><circle cx="33" cy="16" r="1.8" fill="#25384A"/><circle cx="38" cy="14" r="1.8" fill="#25384A"/><path d="M34 20 q2.5 2 5 0" stroke="#25384A" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="31" cy="19" r="1.4" fill="#F4A6A0"/></svg>
+      小藝繪本
+    </a>
+    <a class="th" href="https://www.threads.net/@xiaoyi.books" target="_blank" rel="noopener">看製作過程 ✈</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="sun" aria-hidden="true"></div>
+  <div class="cloud c1" aria-hidden="true"></div>
+  <div class="cloud c2" aria-hidden="true"></div>
+  <svg class="plane" viewBox="0 0 120 80" aria-hidden="true"><path d="M6 46 L112 10 L78 72 L62 48 Z" fill="#FFFFFF" stroke="#25384A" stroke-width="3" stroke-linejoin="round"/><path d="M62 48 L112 10" stroke="#B8C2CC" stroke-width="2"/><circle cx="84" cy="26" r="3" fill="#25384A"/><circle cx="95" cy="22" r="3" fill="#25384A"/><path d="M86 34 q5 4 10 0" stroke="#25384A" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="80" cy="32" r="2.6" fill="#F4A6A0"/><circle cx="100" cy="30" r="2.6" fill="#F4A6A0"/></svg>
+  <div class="hill h2" aria-hidden="true"></div>
+  <div class="hill" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="sticker">孩子當主角的注音科普繪本</span>
+    <h1>這本書的主角，<br>是<em>你的孩子</em>。</h1>
+    <p class="sub">輸入名字、選一個造型，馬上看他自己發現：為什麼我會長大？</p>
+  </div>
+</section>
+
+<section style="background:var(--paper);padding-block:0 8px">
+  <div class="wrap">
+    <form class="form card" id="form" novalidate>
+      <div>
+        <label class="lbl" for="name">孩子的名字</label>
+        <input type="text" id="name" name="name" placeholder="1～4 個中文字" maxlength="4" autocomplete="off" inputmode="text">
+        <div class="err" id="err" aria-live="polite"></div>
+      </div>
+      <div>
+        <span class="lbl">選一個最像他的造型</span>
+        <div class="looks" role="group" aria-label="造型">
+          <button type="button" class="look" data-look="A" aria-pressed="true"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#CFE8F7"/><circle cx="28" cy="22" r="13" fill="#F5D0B0"/><path d="M15 20 q1-13 13-13 q12 0 13 13 q-4-6-13-6 q-9 0-13 6z" fill="#3A2A20"/><rect x="16" y="36" width="24" height="18" rx="6" fill="#F2A93B"/><circle cx="23" cy="24" r="1.6" fill="#25384A"/><circle cx="33" cy="24" r="1.6" fill="#25384A"/><circle cx="20" cy="28" r="2" fill="#F4A6A0"/><circle cx="36" cy="28" r="2" fill="#F4A6A0"/><path d="M25 28 q3 2.5 6 0" stroke="#25384A" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg><span>小安</span></button>
+          <button type="button" class="look" data-look="B" aria-pressed="false"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#FFE3EC"/><circle cx="12" cy="30" r="5" fill="#2A2220"/><circle cx="44" cy="30" r="5" fill="#2A2220"/><circle cx="28" cy="22" r="13" fill="#EFC3A0"/><path d="M15 21 q0-14 13-14 q13 0 13 14 q-5-7-13-7 q-8 0-13 7z" fill="#2A2220"/><rect x="16" y="36" width="24" height="18" rx="6" fill="#A98BD8"/><circle cx="23" cy="24" r="1.6" fill="#25384A"/><circle cx="33" cy="24" r="1.6" fill="#25384A"/><circle cx="20" cy="28" r="2" fill="#F4A6A0"/><circle cx="36" cy="28" r="2" fill="#F4A6A0"/><path d="M25 28 q3 2.5 6 0" stroke="#25384A" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg><span>小晴</span></button>
+          <button type="button" class="look" data-look="C" aria-pressed="false"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#FFF0B8"/><path d="M13 24 q0-16 15-16 q15 0 15 16 v10 h-30z" fill="#2A2220"/><circle cx="28" cy="23" r="12" fill="#F5D0B0"/><path d="M16 19 h24 q-2-9-12-9 q-10 0-12 9z" fill="#2A2220"/><rect x="16" y="36" width="24" height="18" rx="6" fill="#F5CF4A"/><circle cx="23" cy="25" r="1.6" fill="#25384A"/><circle cx="33" cy="25" r="1.6" fill="#25384A"/><circle cx="20" cy="29" r="2" fill="#F4A6A0"/><circle cx="36" cy="29" r="2" fill="#F4A6A0"/><path d="M25 29 q3 2.5 6 0" stroke="#25384A" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg><span>小禾</span></button>
+          <button type="button" class="look" data-look="D" aria-pressed="false"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#DDF3D0"/><circle cx="28" cy="22" r="13" fill="#C98E62"/><circle cx="18" cy="14" r="5" fill="#2A2220"/><circle cx="26" cy="9" r="5" fill="#2A2220"/><circle cx="34" cy="10" r="5" fill="#2A2220"/><circle cx="40" cy="16" r="4.5" fill="#2A2220"/><rect x="16" y="36" width="24" height="18" rx="6" fill="#6CBF7A"/><circle cx="23" cy="24" r="4.2" fill="none" stroke="#25384A" stroke-width="1.2"/><circle cx="33" cy="24" r="4.2" fill="none" stroke="#25384A" stroke-width="1.2"/><circle cx="23" cy="24" r="1.5" fill="#25384A"/><circle cx="33" cy="24" r="1.5" fill="#25384A"/><path d="M25 29 q3 2.5 6 0" stroke="#25384A" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg><span>小樂</span></button>
+        </div>
+      </div>
+      <div><button class="btn" type="submit" id="go">看看我的書 ✈</button></div>
+    </form>
+  </div>
+</section>
+
+<section id="preview" hidden>
+  <div class="wrap">
+    <span class="sticker">第 1 本・我的第一次發現</span>
+    <h2>《為什麼我會長大？》</h2>
+    <p class="for">主角：<span id="forName"></span>　造型：<span id="forLook"></span></p>
+    <div class="pages" id="pages"></div>
+    <p class="spec">成書有注音，共 32 頁，21×21 公分精裝。這裡先看封面和前 5 頁。</p>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <div class="box">
+      <span class="sticker">前 20 本創始價</span>
+      <div class="price" style="margin-top:12px">
+        <span class="now">NT$790</span><span class="was">NT$890</span>
+      </div>
+      <ul class="terms">
+        <li>下單後 14 天內到貨，超商取貨或宅配。</li>
+        <li>出貨前先寄 3 頁預覽給你，確認名字和注音都對。</li>
+        <li>客製商品，預覽確認後不接受退換；印錯無條件重印。</li>
+      </ul>
+      <a class="btn sun" id="preorder" href="#" target="_blank" rel="noopener">我要預購</a>
+      <p class="note" id="orderNote">還在猶豫？到 Threads 看製作過程 → <a href="https://www.threads.net/@xiaoyi.books" target="_blank" rel="noopener">@xiaoyi.books</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <span class="sticker">關於</span>
+    <h2>為什麼做這套書</h2>
+    <div style="margin-top:14px">
+      <p>我不是出版社，是一個每週只有 14 小時的爸爸。</p>
+      <p>我想做的不是把名字套進故事的書，是孩子自己發現科學答案的書。</p>
+      <p>插圖由 AI 協助繪製，故事、科學內容、注音由人編輯和審核。每一本都會寫清楚。</p>
+    </div>
+    <ul class="series">
+      <li><span class="n">1</span><a href="#top">為什麼我會長大？</a><span class="when">預購中</span></li>
+      <li class="soon"><span class="n">2</span>我的牙齒去哪裡了？<span class="when">2027 春</span></li>
+      <li class="soon"><span class="n">3</span>我的心臟為什麼跳得好快？<span class="when">2027 夏</span></li>
+      <li class="soon"><span class="n">4</span>月亮為什麼跟著我走？<span class="when">2027 中秋</span></li>
+      <li class="soon"><span class="n">5</span>飛機為什麼飛得起來？<span class="when">2027 冬</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">小藝繪本 Xiaoyi Books</div>
+    <div id="contact"></div>
+    <div>隱私：我們只收孩子的名字和獻詞，出貨後 90 天刪除訂單資料。</div>
+  </div>
+</footer>
+
+<script>
+/* ===== 設定（Ellis 填這裡） ===== */
+const PREORDER_URL = "";          // Google 表單網址，例如 https://docs.google.com/forms/d/e/xxxx/viewform
+const CONTACT_EMAIL = "";         // 聯絡信箱
+const IMG_BASE = "img/grow";      // 插圖資料夾：img/grow/A/cover.webp, T1.webp ... T5.webp
+/* ================================ */
+
+const LOOKS = {A:"小安",B:"小晴",C:"小禾",D:"小樂"};
+const PAGES = [
+  {id:"cover", pos:"cover", lines:null},
+  {id:"T1", pos:"tr", lines:["今天是{name}的生日。","一早起床，{name}就跑去門邊的身高尺前面，踮起腳尖。","「咦？我比去年高了這麼多！」"]},
+  {id:"T2", pos:"bl", lines:["去年最喜歡的那件衣服，袖子怎麼變短了？","{name}歪著頭想：「是衣服縮水了，還是我真的變大了？」"]},
+  {id:"T3", pos:"tl", lines:["這時候，抽屜裡的紙飛機忽然飛了出來。","「嗨！我是小翼。你猜猜看，你的身體裡藏著什麼？」"]},
+  {id:"T4", pos:"bb", lines:["小翼說：「你的身體，是好多好多小小的『細胞』組成的。」","「一個細胞會變成兩個，兩個變成四個，所以{name}會越來越大！」"]},
+  {id:"T5", pos:"tl", lines:["晚上{name}睡著了，骨頭裡的小工廠卻亮著燈。","它們一直做出新的骨頭，讓{name}慢慢長高。","所以呀，睡飽飽，真的會長大！"]}
+];
+const PLANE = '<svg viewBox="0 0 120 80" aria-hidden="true"><path d="M6 46 L112 10 L78 72 L62 48 Z" fill="#FFFFFF" stroke="#25384A" stroke-width="3" stroke-linejoin="round"/><path d="M62 48 L112 10" stroke="#B8C2CC" stroke-width="2"/><circle cx="84" cy="26" r="3" fill="#25384A"/><circle cx="95" cy="22" r="3" fill="#25384A"/><path d="M86 34 q5 4 10 0" stroke="#25384A" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="80" cy="32" r="2.6" fill="#F4A6A0"/><circle cx="100" cy="30" r="2.6" fill="#F4A6A0"/></svg>';
+
+let look = "A";
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fill = (t, name) => esc(t).split("{name}").join("<b>"+esc(name)+"</b>");
+
+document.querySelectorAll(".look").forEach(b => b.addEventListener("click", () => {
+  look = b.dataset.look;
+  document.querySelectorAll(".look").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  if (!$("#preview").hidden) render();
+}));
+
+function validName(v){ return /^[一-鿿㐀-䶿]{1,4}$/.test(v); }
+
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("#name").value.trim();
+  if (!validName(v)) { $("#err").textContent = "請輸入 1～4 個中文字"; $("#name").focus(); return; }
+  $("#err").textContent = "";
+  render();
+  $("#preview").hidden = false;
+  $("#preview").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+});
+
+function currentName(){ const v = $("#name").value.trim(); return validName(v) ? v : "小安"; }
+
+function render(){
+  const name = currentName();
+  $("#forName").textContent = name + (validName($("#name").value.trim()) ? "" : "（示範）");
+  $("#forLook").textContent = LOOKS[look];
+  const wrap = $("#pages"); wrap.innerHTML = "";
+  PAGES.forEach((p, i) => {
+    const el = document.createElement("div"); el.className = "page";
+    const src = `${IMG_BASE}/${look}/${p.id}.webp`;
+    el.innerHTML = `<div class="ph">${PLANE}<span>插圖製作中</span></div>
+      <img alt="" loading="lazy" src="${src}">
+      <span class="num">${i === 0 ? "封面" : "第 " + (i+1) + " 頁"}</span>`;
+    const img = el.querySelector("img");
+    img.addEventListener("error", () => img.remove());
+    img.addEventListener("load", () => el.querySelector(".ph")?.remove());
+    const t = document.createElement("div"); t.className = "txt " + p.pos;
+    if (p.pos === "cover") t.innerHTML = `<span class="s">我的第一次發現</span><span class="t">為什麼我會長大？</span><span class="s">主角：${esc(name)}</span>`;
+    else t.innerHTML = p.lines.map(l => fill(l, name)).join("<br>");
+    el.appendChild(t);
+    wrap.appendChild(el);
+  });
+  updateOrderLink(name);
+}
+
+function updateOrderLink(name){
+  const a = $("#preorder");
+  if (!PREORDER_URL) { a.setAttribute("aria-disabled","true"); a.href = "#order"; a.removeAttribute("target"); a.textContent = "預購表單準備中"; return; }
+  const u = new URL(PREORDER_URL);
+  if (name) u.searchParams.set("name", name);
+  u.searchParams.set("look", look);
+  a.href = u.toString(); a.textContent = "我要預購";
+}
+if (CONTACT_EMAIL) $("#contact").textContent = "聯絡：" + CONTACT_EMAIL;
+$("#preorder").addEventListener("click", e => { if (e.currentTarget.getAttribute("aria-disabled") === "true") e.preventDefault(); });
+
+// 第一眼就看得到預覽：先用小安示範
+render(); $("#preview").hidden = false;
+</script>
+</body>
+</html>
