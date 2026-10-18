@@ -1,8 +1,9 @@
 # 小藝繪本：階段 0 試讀網站
 
-網站預定入口：https://ellis1004.github.io/xiaoyi-books/ 。實際發布狀態與檢查結果記在專案 REPORT.md。
+網站入口：https://ellis1004.github.io/xiaoyi-books/ 。實際發布狀態與檢查結果記在專案 REPORT.md。
 
 本網站沿用總編輯提供的 index.html 版面和文案。本輪先提供造型 A；B、C、D 仍顯示原稿的「插圖製作中」，等 A 驗收後才製作。
+Ellis 本輪另行核准兩處 CSS 修正：手機造型選項不再撐出輸入卡片，以及把太陽的絕對定位只套在首頁裝飾，避免預購按鈕壓住價格。HTML 內文與 JavaScript 維持原稿。
 
 ## 換圖片
 

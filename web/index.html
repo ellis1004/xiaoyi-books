@@ -45,7 +45,7 @@ header a.th{font-family:var(--display);font-size:14px;color:var(--ink);text-deco
 /* hero sky */
 .hero{position:relative;background:linear-gradient(var(--sky) 0%,var(--sky-deep) 100%);padding-block:40px 0;overflow:hidden}
 .hero .wrap{position:relative;z-index:2;padding-bottom:150px}
-.sun{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 18px color-mix(in srgb,var(--sun) 25%,transparent);z-index:1}
+.hero>.sun{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 18px color-mix(in srgb,var(--sun) 25%,transparent);z-index:1}
 .cloud{position:absolute;background:var(--card);border-radius:999px;opacity:.95;z-index:1}
 .cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
 .cloud.c1{width:140px;height:44px;left:-20px;top:70px}.cloud.c1::before{width:60px;height:60px;left:22px;top:-30px}.cloud.c1::after{width:44px;height:44px;left:70px;top:-18px}
@@ -67,16 +67,17 @@ header a.th{font-family:var(--display);font-size:14px;color:var(--ink);text-deco
 /* the form card sits on the hill */
 .card{position:relative;z-index:4;background:var(--card);border-radius:28px;padding:22px 20px 24px;box-shadow:var(--shadow);margin-top:-120px;border:3px solid var(--sun)}
 .form{display:grid;gap:20px}
+.form>div{min-width:0}
 label.lbl,.lbl{display:block;font-family:var(--display);font-size:16px;color:var(--ink);margin-bottom:8px}
 input[type=text]{width:100%;font:inherit;font-family:var(--display);font-size:28px;padding:12px 18px;border:3px dashed var(--sky-deep);border-radius:18px;background:var(--paper);color:var(--ink)}
 input[type=text]:focus{outline:none;border-style:solid;border-color:var(--wing);box-shadow:0 0 0 5px color-mix(in srgb,var(--wing) 25%,transparent)}
 .err{font-size:14px;color:var(--coral-deep);min-height:1.4em;margin-top:4px}
-.looks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.look{border:3px solid transparent;background:var(--paper);border-radius:22px;padding:10px 4px 8px;display:grid;justify-items:center;gap:6px;cursor:pointer;font:inherit;color:var(--ink);transition:transform .15s}
+.looks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.look{min-width:0;border:3px solid transparent;background:var(--paper);border-radius:22px;padding:10px 4px 8px;display:grid;justify-items:center;gap:6px;cursor:pointer;font:inherit;color:var(--ink);transition:transform .15s}
 .look:hover{transform:translateY(-3px)}
 .look[aria-pressed=true]{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--card))}
 .look:focus-visible{outline:3px solid var(--wing);outline-offset:2px}
-.look svg{width:64px;height:64px}
+.look svg{width:64px;max-width:100%;height:auto;aspect-ratio:1}
 .look span{font-family:var(--display);font-size:17px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-family:var(--display);font-size:22px;padding:14px 30px;border-radius:999px;border:0;background:var(--coral);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 6px 0 var(--coral-deep);transition:transform .1s,box-shadow .1s}
 .btn:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--coral-deep)}
