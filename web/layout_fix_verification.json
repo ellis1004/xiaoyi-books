@@ -1,8 +1,0 @@
-{
-  "explicit_approval": "Ellis approved both CSS fixes in this session",
-  "body_and_javascript_unchanged": true,
-  "fixes": [
-    "mobile four-look grid min width and SVG sizing",
-    "scope .sun positioning to hero decoration"
-  ]
-}
